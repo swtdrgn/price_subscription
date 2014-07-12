@@ -1,5 +1,9 @@
 <html>
 <?php
+	phpinfo();
+?>
+
+<?php
 
 //$_POST["name"]
 //http://www.newegg.com/Product/Product.aspx?Item=N82E16819116989
