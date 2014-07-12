@@ -12,7 +12,8 @@ Name: <?=$_POST["name"]?><br/>
 
 	$connection = new MongoClient();
 	$db = $connection->neweggtracker;
-	$db->update($doc,$subscribe_email);
+	$collection = $db->subscription;
+	$collection->update($doc,$subscribe_email);
 ?>
 singleFinalPrice
 <br/><br/>
