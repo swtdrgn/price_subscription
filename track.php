@@ -1,8 +1,8 @@
 <html>
-Name: <?=$_POST["name"]?>
+Name: <?=$_POST["name"]?><br/>
 
 <?
-	parse_url($_POST["name"],$output);
+	$output = parse_url($_POST["name"]);
 	var_dump($output);
 ?>
 
