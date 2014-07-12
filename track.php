@@ -16,6 +16,11 @@ $doc = array(
     "versions" => array("0.9.7", "0.9.8", "0.9.9")
 );
 
+foreach ($_POST as $name => $val)
+{
+     echo htmlspecialchars($name . ': ' . $val) . "\n";
+}
+
 ?>
 
 <br/><br/>
