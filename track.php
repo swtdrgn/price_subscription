@@ -4,7 +4,6 @@ Name: <?=$_POST["name"]?><br/>
 <?
 	$parsed_url = parse_url($_POST["name"]);
 	parse_str($parsed_url["query"],$output);
-	var_dump($output);
 
 	$subscribe_email = array('$addToSet' => array("email" => $_POST["email"]));
 
@@ -13,6 +12,7 @@ Name: <?=$_POST["name"]?><br/>
 	$connection = new MongoClient();
 	$db = $connection->neweggtracker;
 	$collection = $db->subscription;
+	var_dump($collection);
 	var_dump($collection->update($doc,$subscribe_email));
 ?>
 singleFinalPrice
