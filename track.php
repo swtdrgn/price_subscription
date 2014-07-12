@@ -10,7 +10,9 @@ Name: <?=$_POST["name"]?><br/>
 	$doc = array("_id" => $output["Item"]);
 
 	$connection = new MongoClient();
+	var_dump($connection);
 	$db = $connection->neweggtracker;
+	var_dump($db);
 	$collection = $db->subscription;
 	var_dump($collection);
 	var_dump($collection->update($doc,$subscribe_email));
