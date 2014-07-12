@@ -1,3 +1,4 @@
+<html>
 <?php
 
 //$_POST["name"]
@@ -19,3 +20,4 @@ $doc = array(
 
 <br/><br/>
 Name: <?=$_POST["name"]?>
+</html>
