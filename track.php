@@ -17,8 +17,11 @@ Name: <?=$_POST["name"]?><br/>
 	var_dump($db);
 	echo "<br/>Here 03?<br/>";
 	$collection = $db->subscription;
+	echo "<br/>Here 04?<br/>";
 	var_dump($collection);
-	var_dump($collection->update($doc,$subscribe_email));
+	echo "<br/>Here 05?<br/>";
+	var_dump($collection->update($doc,$subscribe_email),array('upsert' => true));
+	echo "<br/>Here 06?<br/>";
 ?>
 singleFinalPrice
 <br/><br/>
