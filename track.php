@@ -2,7 +2,8 @@
 Name: <?=$_POST["name"]?><br/>
 
 <?
-	$output = parse_url($_POST["name"]);
+	$parsed_url = parse_url($_POST["name"]);
+	parse_str($parsed_url,$output);
 	var_dump($output);
 ?>
 
