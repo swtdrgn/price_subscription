@@ -3,7 +3,7 @@
 //$_POST["name"]
 //http://www.newegg.com/Product/Product.aspx?Item=N82E16819116989
 
-parse_str("http://www.newegg.com/Product/Product.aspx?Item=N82E16819116989",$output);
+parse_str($_POST["name"],$output);
 var_dump($output);
 
 $doc = array(
@@ -16,3 +16,6 @@ $doc = array(
 );
 
 ?>
+
+<br/><br/>
+Name: <?=$_POST["name"]?>
