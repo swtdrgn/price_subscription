@@ -10,7 +10,7 @@ Name: <?=$_POST["name"]?><br/>
 	$doc = array("_id" => $output["Item"]);
 
 	echo "<br/>Here 01?<br/>";
-	$connection = new MongoClient();
+	$connection = new MongoClient($_ENV["OPENSHIFT_MONGODB_DB_URL"]);
 	var_dump($connection);
 	echo "<br/>Here 02?<br/>";
 	$db = $connection->neweggtracker;
