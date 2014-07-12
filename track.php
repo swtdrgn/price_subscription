@@ -4,6 +4,8 @@
 //$_POST["name"]
 //http://www.newegg.com/Product/Product.aspx?Item=N82E16819116989
 
+phpinfo();
+
 parse_str($_POST["name"],$output);
 var_dump($output);
 
@@ -20,8 +22,6 @@ foreach ($_POST as $name => $val)
 {
      echo htmlspecialchars($name . ': ' . $val) . "\n";
 }
-
-phpinfo();
 
 ?>
 
