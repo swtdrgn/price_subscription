@@ -13,7 +13,7 @@ Name: <?=$_POST["name"]?><br/>
 	$connection = new MongoClient();
 	$db = $connection->neweggtracker;
 	$collection = $db->subscription;
-	$collection->update($doc,$subscribe_email);
+	var_dump($collection->update($doc,$subscribe_email));
 ?>
 singleFinalPrice
 <br/><br/>
