@@ -161,10 +161,12 @@ func main() {
 				old_price,_ := strconv.ParseFloat(sub.Current,64)
 				if p < old_price && sub.Current != price {
 					SendMail(sub.Subscriptions,"Price Dropped: Newegg Item#"+sub.Id,"Newegg Item #"+sub.Id+" has dropped from $"+sub.Current+" to $"+price+".")
+				} else if p > old_price && sub.Current != price {
+					SendMail(sub.Subscriptions,"Price Raised: Newegg Item#"+sub.Id,"Newegg Item #"+sub.Id+" has increased from $"+sub.Current+" to $"+price+".")
 				}
 			}
 		} else if sub.Current != PRICE_OUT_OF_STOCK {
-			SendMail(sub.Subscriptions,"Out of Stock: Newegg Item#"+sub.Id,"Newegg Item #"+sub.Id+" is out of stock from $"+sub.Current+".")
+			SendMail(sub.Subscriptions,"Out of Stock: Newegg Item#"+sub.Id,"Newegg Item #"+sub.Id+" is out of stock, previously $"+sub.Current+".")
 		}
 		
 		if price != sub.Current {
