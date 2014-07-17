@@ -15,7 +15,7 @@ Name: <?=$_POST["name"]?><br/>
 		$subscription_collection = $db->subscriptions;
 		$subscription_collection->update($doc,$subscribe_email,$update_options);
 	} else {
-		echo "empty."
+		echo "empty.";
 	}
 
 	//$subscribe_email = array('$set' => array('prices' => array('date' => )));
@@ -23,6 +23,5 @@ Name: <?=$_POST["name"]?><br/>
 	//$price_collection = $db->prices;
 	//$price_collection->update($doc,$subscribe_email,$update_options);
 ?>
-singleFinalPrice
 <br/><br/>
 </html>
