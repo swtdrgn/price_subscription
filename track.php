@@ -5,7 +5,10 @@ Name: <?=$_POST["name"]?><br/>
 	$parsed_url = parse_url($_POST["name"]);
 	parse_str($parsed_url["query"],$output);
 
-	if (!empty($output["Item"])) {
+	if (strpos(get_headers("http://www.newegg.com/Product/MappingPrice.aspx?Item=" . $output["Item"], 1)["Location"], "http://www.newegg.com/Common/MessagePage.aspx") !== false) {
+		echo '["Item is not found."]';
+	}
+	else {
 		$doc = array("_id" => $output["Item"]);
 		$subscribe_email = array('$addToSet' => array("email" => $_POST["email"]));
 		$update_options = array('upsert' => true);
@@ -14,8 +17,7 @@ Name: <?=$_POST["name"]?><br/>
 		$db = $connection->neweggtracker;
 		$subscription_collection = $db->subscriptions;
 		$subscription_collection->update($doc,$subscribe_email,$update_options);
-	} else {
-		echo "empty.";
+		echo "[]";
 	}
 
 	//$subscribe_email = array('$set' => array('prices' => array('date' => )));
