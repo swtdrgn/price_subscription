@@ -70,6 +70,9 @@ func getNeweggPrice (n *html.Node) (price string, status int) {
 		} else if (attr.Key == "alt" && attr.Val == "Auto Notify") || (attr.Key == "title" && attr.Val == "Auto Notify") {
 			price = PRICE_OUT_OF_STOCK
 			status = OUT_OF_STOCK
+		} else if attr.Key == "class" && attr.Val == "soldout" {
+			price = PRICE_OUT_OF_STOCK
+			status = OUT_OF_STOCK
 		}
 	}
 	if n.FirstChild != nil {
