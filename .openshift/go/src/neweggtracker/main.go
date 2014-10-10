@@ -153,7 +153,11 @@ func main() {
 		timestamp := fmt.Sprintf("prices.%4d-%02d-%02d %02d:00", year,month,date,hour)
 
 		//fmt.Println("http://www.newegg.com/Product/MappingPrice.aspx?Item="+sub.Id)
-		neweggResponse,_ := http.Get("http://www.newegg.com/Product/MappingPrice.aspx?Item="+sub.Id)
+		neweggResponse,err := http.Get("http://www.newegg.com/Product/MappingPrice.aspx?Item="+sub.Id)
+		if err != nil {
+			fmt.Println("HTTP GET ERROR:",sub.Id,err)
+			continue
+		}
 		defer neweggResponse.Body.Close()
 
 		node,_ := html.Parse(neweggResponse.Body)
