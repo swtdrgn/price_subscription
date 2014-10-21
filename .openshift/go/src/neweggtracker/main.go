@@ -27,6 +27,7 @@ type subscription struct {
 }
 
 const (
+	ERROR  		 = -1
     REGULAR      = 1
     REBATE       = 2
     OUT_OF_STOCK = 3
@@ -59,6 +60,9 @@ func findElement2 (token *html.Tokenizer, id string) {
 }
 
 func getNeweggPrice (n *html.Node) (price string, status int) {
+	if n == nil {
+		return "",ERROR
+	}
 	if n.Data == "strong" {
 		price = strings.Trim(n.FirstChild.Data,"$ \n\t")
 		status = REBATE
@@ -162,6 +166,9 @@ func main() {
 
 		node,_ := html.Parse(neweggResponse.Body)
 		price,status := getNeweggPrice(node)
+		if status == ERROR {
+			continue
+		}
 
 		if sub.Current == "" {
 		} else if status != OUT_OF_STOCK {
@@ -184,7 +191,7 @@ func main() {
 			err = collection.Update(bson.M{"_id": sub.Id}, bson.M{"$set": bson.M{timestamp: price, "current": price}})
 			if err != nil {
 				fmt.Printf("Can't update document: %s (err: %v)\n", sub.Id, err)
-				return
+				//return
 			}
 		}
 	}
