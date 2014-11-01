@@ -122,6 +122,8 @@ func SendMail(to []string, subject string, msg string) error {
 }
  
 func main() {
+	t := time.Now()
+	SendMail([]string{"wwang.ebay@gmail.com"},fmt.Sprintf("Tracker started running on %s",t),"Tracker started running.")
 	uri := os.Getenv("OPENSHIFT_MONGODB_DB_URL")
 	fmt.Println(uri)
 	if uri == "" {
@@ -147,7 +149,11 @@ func main() {
 	//var results interface{}
 
 	var sub subscription;
+	errLastRun := false
 	for it := collection.Find(bson.M{}).Iter(); it.Next(&sub); {
+		if errLastRun {
+			fmt.Println("Current Id: ", sub.Id)
+		}
 		if sub.Id == "" {
 			continue
 		}
@@ -178,7 +184,7 @@ func main() {
 				p,_ := strconv.ParseFloat(price,64)
 				old_price,_ := strconv.ParseFloat(sub.Current,64)
 				if p < old_price && sub.Current != price {
-					SendMail(sub.Subscriptions,"Price Dropped: Newegg Item#"+sub.Id,"Newegg Item# "+sub.Id+" (http://www.newegg.com/Product/Product.aspx?Item="+sub.Id+") has dropped from $"+sub.Current+" to $"+price+".")
+					SendMail(sub.Subscriptions,fmt.Sprintf("Price Dropped: Newegg Item#%s(%.2f%%)",sub.Id,(p*100/old_price)),"Newegg Item# "+sub.Id+" (http://www.newegg.com/Product/Product.aspx?Item="+sub.Id+") has dropped from $"+sub.Current+" to $"+price+".")
 				} else if p > old_price && sub.Current != price {
 					SendMail(sub.Subscriptions,"Price Raised: Newegg Item#"+sub.Id,"Newegg Item# "+sub.Id+" (http://www.newegg.com/Product/Product.aspx?Item="+sub.Id+") has increased from $"+sub.Current+" to $"+price+".")
 				}
@@ -195,4 +201,6 @@ func main() {
 			}
 		}
 	}
+
+	SendMail([]string{"wwang.ebay@gmail.com"},fmt.Sprintf("Tracker started on %s has completed",t),"Tracker completed running.")
 }
