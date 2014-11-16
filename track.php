@@ -18,13 +18,13 @@ Name: <?=$_POST["name"]?><br/>
 			$db = $connection->neweggtracker;
 			$subscription_collection = $db->subscriptions;
 			$test = $subscription_collection->update($doc,$subscribe_email,$update_options);
-			echo $connection . "<br/>\n";
-			echo $db . "<br/>\n";
-			echo $subscription_collection  . "<br/>\n";
-			var_dump($test);
-			echo "<br/>\n";
+			//echo $connection . "<br/>\n";
+			//echo $db . "<br/>\n";
+			//echo $subscription_collection  . "<br/>\n";
+			//var_dump($test);
+			//echo "<br/>\n";
 			echo "[]";
-			var_dump($db->lastError());
+			//var_dump($db->lastError());
 		} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
