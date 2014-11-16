@@ -34,10 +34,15 @@ const (
 
     PRICE_OUT_OF_STOCK = "Out of Stock"
 
-	EMAIL_USERNAME = "neweggtracker"
-	EMAIL_PASSWORD = "newguyintown"
-	EMAIL_SERVER   = "smtp.gmail.com"
-	EMAIL_PORT     = 587
+    EMAIL_FROM         = "neweggtracker@gmail.com"
+    EMAIL_USERNAME     = "AKIAJN5AWP3ACEYEOYSQ"
+    EMAIL_PASSWORD     = "AlZ0mPF3r1oFVc/cdZFkzlXTEtuBcCtRc6wKLpaFQYNP"
+    EMAIL_SERVER       = "email-smtp.us-west-2.amazonaws.com"
+    EMAIL_PORT         = 587
+	//EMAIL_USERNAME = "neweggtracker"
+	//EMAIL_PASSWORD = "newguyintown"
+	//EMAIL_SERVER   = "smtp.gmail.com"
+	//EMAIL_PORT     = 587
 )
 
 func findElement2 (token *html.Tokenizer, id string) {
@@ -109,7 +114,7 @@ func SendMail(to []string, subject string, msg string) error {
 	err := smtp.SendMail(
 		address,
 		auth,
-		EMAIL_USERNAME,
+		EMAIL_FROM,
 		to,
 		body,
 	)
@@ -123,9 +128,10 @@ func SendMail(to []string, subject string, msg string) error {
  
 func main() {
 	t := time.Now()
-	SendMail([]string{"wwang.ebay@gmail.com"},fmt.Sprintf("Tracker started running on %s",t),"Tracker started running.")
-	uri := os.Getenv("OPENSHIFT_MONGODB_DB_URL")
-	fmt.Println(uri)
+	SendMail([]string{"wwang.ebay@gmail.com","neweggtracker@gmail.com"},fmt.Sprintf("Tracker started running on %s",t),"Tracker started running.")
+	uri := "mongodb://simon:simon@ds041218.mongolab.com:41218/neweggtracker"
+	//uri := os.Getenv("OPENSHIFT_MONGODB_DB_URL")
+	//fmt.Println(uri)
 	if uri == "" {
 		fmt.Println("no connection string provided")
 		os.Exit(1)
@@ -136,6 +142,8 @@ func main() {
 		os.Exit(1)
 	}
 	defer sess.Close()
+
+	fmt.Println("Starting tracker.")
 
 	sess.SetSafe(&mgo.Safe{})
 	collection := sess.DB("neweggtracker").C("subscriptions")
@@ -202,5 +210,6 @@ func main() {
 		}
 	}
 
-	SendMail([]string{"wwang.ebay@gmail.com"},fmt.Sprintf("Tracker started on %s has completed",t),"Tracker completed running.")
+	fmt.Println("Finished.")
+	SendMail([]string{"wwang.ebay@gmail.com","neweggtracker@gmail.com"},fmt.Sprintf("Tracker started on %s has completed",t),"Tracker completed running.")
 }
