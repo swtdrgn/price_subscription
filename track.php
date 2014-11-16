@@ -17,7 +17,11 @@ Name: <?=$_POST["name"]?><br/>
 			$connection = new MongoClient("mongodb://simon:simon@ds041218.mongolab.com:41218/neweggtracker");
 			$db = $connection->neweggtracker;
 			$subscription_collection = $db->subscriptions;
-			$subscription_collection->update($doc,$subscribe_email,$update_options);
+			$test = $subscription_collection->update($doc,$subscribe_email,$update_options);
+			echo $connection . "\n";
+			echo $db . "\n";
+			echo $subscription_collection  . "\n";
+			echo $test  . "\n";
 			echo "[]";
 		} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
