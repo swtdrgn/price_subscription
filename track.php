@@ -24,6 +24,7 @@ Name: <?=$_POST["name"]?><br/>
 			var_dump($test);
 			echo "<br/>\n";
 			echo "[]";
+			var_dump($db->lastError());
 		} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
