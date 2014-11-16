@@ -9,15 +9,19 @@ Name: <?=$_POST["name"]?><br/>
 		echo '["Item is not found."]';
 	}
 	else {
-		$doc = array("_id" => $output["Item"]);
-		$subscribe_email = array('$addToSet' => array("email" => $_POST["email"]));
-		$update_options = array('upsert' => true);
+		try {
+			$doc = array("_id" => $output["Item"]);
+			$subscribe_email = array('$addToSet' => array("email" => $_POST["email"]));
+			$update_options = array('upsert' => true);
 
-		$connection = new MongoClient("mongodb://simon:simon@ds041218.mongolab.com:41218/neweggtracker");
-		$db = $connection->neweggtracker;
-		$subscription_collection = $db->subscriptions;
-		$subscription_collection->update($doc,$subscribe_email,$update_options);
-		echo "[]";
+			$connection = new MongoClient("mongodb://simon:simon@ds041218.mongolab.com:41218/neweggtracker");
+			$db = $connection->neweggtracker;
+			$subscription_collection = $db->subscriptions;
+			$subscription_collection->update($doc,$subscribe_email,$update_options);
+			echo "[]";
+		} catch (Exception $e) {
+			echo 'Caught exception: ',  $e->getMessage(), "\n";
+		}
 	}
 
 	//$subscribe_email = array('$set' => array('prices' => array('date' => )));
