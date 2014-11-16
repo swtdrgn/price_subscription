@@ -21,7 +21,8 @@ Name: <?=$_POST["name"]?><br/>
 			echo $connection . "<br/>\n";
 			echo $db . "<br/>\n";
 			echo $subscription_collection  . "<br/>\n";
-			echo $test  . "<br/>\n";
+			var_dump($test);
+			echo "<br/>\n";
 			echo "[]";
 		} catch (Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
